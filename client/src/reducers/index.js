@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-
 import authReducer from './auth.js';
 import docReducer from './docReducer'
 
