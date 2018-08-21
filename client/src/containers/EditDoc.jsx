@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DocTitle from '../components/DocTitle';
 import { connect } from 'react-redux';
+import { pasteData} from '../actions/actions';
+
 
 const mapDispatchToProps = dispatch => ({
   dispatch
@@ -9,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
 class EditDoc extends Component{
   constructor(props) {
     super(props)
-    this.state = {code: ''}
+    this.state = {code: '', data: ''}
   }
   handleOnchange =(e) => {
     this.setState({code: e.target.value})
@@ -19,8 +21,16 @@ class EditDoc extends Component{
   }
 
   pasteFromClipBoard = () => {
-    console.log('pasting from clipboard')
+    navigator.clipboard.readText()
+    .then(text => {
+    this.setState({data: text})
+    })
+    .then(() => this.props.dispatch(pasteData(this.state.data)))
+    .catch(err => {
+      console.log('Something went wrong', err);
+    })
   }
+  
   save = () => {
     console.log('saving document')
   }
