@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Header extends Component {
   render() {
-    return <h3>Codesmith app!</h3>;
+    return <h3>JSON Viewer</h3>;
   }
 }
 
