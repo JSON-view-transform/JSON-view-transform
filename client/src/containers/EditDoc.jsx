@@ -9,11 +9,48 @@ const mapDispatchToProps = dispatch => ({
 class EditDoc extends Component{
   constructor(props) {
     super(props)
+    this.state = {code: ''}
+  }
+  handleOnchange =(e) => {
+    this.setState({code: e.target.value})
+  }
+  signOut = () => {
+    console.log('sign out')
+  }
 
+  pasteFromClipBoard = () => {
+    console.log('pasting from clipboard')
+  }
+  save = () => {
+    console.log('saving document')
+  }
+  runCode = () => {
+    console.log(this.state.code)
   }
 
   render() {
-    return <DocTitle dispatch={this.props.dispatch}/>
+    return (
+      <div className="editDocContainer">
+        <div className="docTitle">
+          <DocTitle dispatch={this.props.dispatch}/>
+          <button className="signOut" onClick={this.signOut}>Sign out</button>
+        </div>
+        <div className="pasteButton">
+          <button className="paste" onClick={this.pasteFromClipBoard}> Paste from Clipboard</button>
+        </div>
+        <div className="JSON VIEWS">
+          <button className="save" onClick={this.save}>Save</button>
+          <h1> JSON VIEW COMPONENT HERE</h1>
+          <h1> PROCESSED JSON VIEW COMPONENT HERE</h1>
+
+        </div>
+        <div className="codeEditor">
+          <textarea rows="10" onChange={this.handleOnchange} value={this.state.code}
+          />
+          <button onClick={this.runCode}> Run Code </button>
+        </div>
+      </div>
+  )
   }
 }
 
