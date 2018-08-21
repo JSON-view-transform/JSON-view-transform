@@ -18,9 +18,16 @@ class EditDoc extends Component{
     console.log('sign out')
   }
 
-  pasteFromClipBoard = () => {
-    console.log('pasting from clipboard')
+  pasteFromClipBoard = (e) => {
+    navigator.clipboard.readText()
+    .then(text => {
+      console.log(  text )
+    })
+    .catch(err => {
+      console.log('Something went wrong', err);
+    })
   }
+  
   save = () => {
     console.log('saving document')
   }
@@ -36,7 +43,7 @@ class EditDoc extends Component{
           <button className="signOut" onClick={this.signOut}>Sign out</button>
         </div>
         <div className="pasteButton">
-          <button className="paste" onClick={this.pasteFromClipBoard}> Paste from Clipboard</button>
+          <button className="paste" onClick={(e) => this.pasteFromClipBoard(e)}> Paste from Clipboard</button>
         </div>
         <div className="JSON VIEWS">
           <button className="save" onClick={this.save}>Save</button>
