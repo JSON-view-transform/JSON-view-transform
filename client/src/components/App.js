@@ -18,7 +18,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/hello" component={Hello} />
-            <Router path="/protected" component={RequireAuth(Protected)} />
+            <Route path="/protected" component={RequireAuth(Protected)} />
           </Switch>
         </div>
       </BrowserRouter>
