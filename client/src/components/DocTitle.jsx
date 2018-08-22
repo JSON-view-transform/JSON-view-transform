@@ -15,16 +15,23 @@ export default class DocTitle extends Component {
   handleChange = (e) => {
     this.setState({title: e.target.value});
   }
-
+  
   render() {
-    return (<form onSubmit={e => this.handleSubmit(e)}>
+    
+  
+    return (
+      <div>
+
+      <form onSubmit={e => this.handleSubmit(e)}>
       Title:
       <input
         type="text"
         placeholder="Untitled"
         value={this.state.title}
         onChange={this.handleChange}
-      />
-      </form>)
+        />
+      </form>
+        </div>
+    )
   }
 }
