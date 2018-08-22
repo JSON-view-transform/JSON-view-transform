@@ -25,6 +25,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// define authentication strategy
+require('./services/googlePassport')(pool);
+
 // create server routes
 require('./routes/auth')(app);
 

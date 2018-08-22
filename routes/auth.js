@@ -27,7 +27,7 @@ module.exports = app => {
     console.log('current user');
     console.log(req.user);
     
-    res.send(req.user); // req.user generated from cookie session and passport
+    res.json(req.user || null); // req.user generated from cookie session and passport
   });
 };
 

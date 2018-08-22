@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import {fetchUser} from '../actions/auth.js';
 
 import Header from './Header.js';
 import Home from './Home.js';
+import EditDoc from '../containers/EditDoc'
 import Hello from './Hello.js';
 import Protected  from './Protected.js';
 
 import RequireAuth from './RequireAuth.js';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+  
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Header />
+          <Header data={this.props.auth.data} />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={EditDoc} />
             <Route path="/hello" component={Hello} />
-            <Router path="/protected" component={RequireAuth(Protected)} />
+            <Route path="/protected" component={RequireAuth(Protected)} />
           </Switch>
         </div>
       </BrowserRouter>
@@ -26,4 +33,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchUser: () => dispatch(fetchUser())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
