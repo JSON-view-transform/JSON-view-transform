@@ -1,17 +1,13 @@
 import * as types from '../actions/types.js';
 
-export default function(state = {username: null, error: null}, action) {
+export default function(state = {data: null, error: null}, action) {
   switch (action.type) {
-    case types.AUTH_USER:
-      return {...state, username: action.payload};
-    case types.LOGOUT_USER:
-      return {...state, username: null};
+    case types.FETCH_USER:
+      return {...state, data: action.payload};
     case types.AUTH_ERROR:
-      return {...state, error: action.payload};
-    case types.CLEAR_AUTH_ERROR:
-      return {...state, error: null};
+      return {...state, data: false, error: action.payload};
     default:
       return state;
   }
-}
+};
 
