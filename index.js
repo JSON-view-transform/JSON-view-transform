@@ -30,6 +30,7 @@ require('./services/googlePassport')(pool);
 
 // create server routes
 require('./routes/auth')(app);
+require('./routes/documents')(app, pool);
 
 // set up server
 const port = 4000;
