@@ -120,11 +120,11 @@ class EditDoc extends Component{
         <div className="viewContainer">
           <div className="jsonView">
             <button className="save" onClick={this.save}>Save</button>
-            <h1> JSON VIEW COMPONENT HERE</h1>
+            <h1> Json View </h1>
             {mapped}
           </div>
           <div className="processedView">
-            <h1> PROCESSED JSON VIEW COMPONENT HERE</h1>
+            <h1> Processed Json View</h1>
             {processedMap}
           </div>
         </div>
