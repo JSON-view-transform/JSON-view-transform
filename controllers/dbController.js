@@ -13,9 +13,7 @@ module.exports = pool => ({
       console.log('created');
       
       const doc = result.rows[0];
-      res.locals.doc_id = doc.doc_id;
-      console.log(res.locals.doc_id);
-      next();
+      res.status(200).json(doc);
     }).catch(err => {
       console.log(err);
       res.status(400).send(err);
@@ -29,13 +27,44 @@ module.exports = pool => ({
     
     pool.query(queryText, values).then(result => {
       console.log('saved');
-      next();
+      
+      const doc = result.rows[0];
+      res.status(200).json(doc);
     }).catch(err => {
       console.log(err);
       res.status(400).send(err);
     });
   },
-  // getDocs:
-  // getDocContent:
+  // get all docs for a user
+  getDocs: (req, res, next) => {
+    const queryText = 'SELECT doc_id, name FROM documents WHERE owner=$1 ORDER BY last_updated DESC';
+    const owner = req.user.id;
+    const values = [owner];
+    
+    pool.query(queryText, values).then(result => {
+      console.log('retrieved docs');
+      const docs = result.rows;
+      res.status(200).json(docs);
+    }).catch(err => {
+      console.log(err);
+      res.status(400).send(err);
+    });
+  },
+  // get given document's contents
+  getDocContent: (req, res, next) => {
+    const queryText = 'SELECT name, input_json, output_json, code FROM documents WHERE owner=$1 AND doc_id=$2';
+    const {doc_id} = req.query;
+    const owner = req.user.id;
+    const values = [owner, doc_id];
+    
+    pool.query(queryText, values).then(result => {
+      console.log('retrieved doc content');
+      const doc = result.rows[0];
+      res.status(200).json(doc);
+    }).catch(err => {
+      console.log(err);
+      res.status(400).send(err);
+    });
+  }
 });
 
