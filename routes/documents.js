@@ -15,5 +15,8 @@ module.exports = (app, pool) => {
   
   // get given document's contents
   app.get('/api/get_doc_content', dbController.getDocContent);
+  
+  // delete a document
+  app.delete('/api/delete_doc', dbController.deleteDoc);
 };
 

@@ -65,6 +65,20 @@ module.exports = pool => ({
       console.log(err);
       res.status(400).send(err);
     });
+  },
+  deleteDoc: (req, res, next) => {
+    const queryText = 'DELETE FROM documents WHERE owner=$1 AND doc_id=$2';
+    const {doc_id} = req.query;
+    const owner = req.user.id;
+    const values = [owner, doc_id];
+    
+    pool.query(queryText, values).then(result => {
+      console.log('deleted doc');
+      res.status(200).json(result);
+    }).catch(err => {
+      console.log(err);
+      res.status(400).send(err);
+    });
   }
 });
 
