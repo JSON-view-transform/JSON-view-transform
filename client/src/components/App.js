@@ -9,14 +9,14 @@ import Home from './Home.js';
 import EditDoc from '../containers/EditDoc'
 import Hello from './Hello.js';
 import Protected  from './Protected.js';
-
+import DocList from '../containers/DocList'
 import RequireAuth from './RequireAuth.js';
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
   }
-  
+
   render() {
     return (
       <BrowserRouter>
@@ -26,6 +26,7 @@ class App extends Component {
             <Route exact path="/" component={EditDoc} />
             <Route path="/hello" component={Hello} />
             <Route path="/protected" component={RequireAuth(Protected)} />
+            <Route exact path="/myDocs" component={DocList}/>
           </Switch>
         </div>
       </BrowserRouter>
@@ -42,4 +43,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

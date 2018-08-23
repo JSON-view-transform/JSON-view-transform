@@ -23,6 +23,7 @@ class IsArray extends Component {
     if (!this.state.collapsed) {
       const obj = this.props.data
       const arr = Object.keys(obj)
+      console.log(obj)
       const mapped = arr.map((e,i) => {
         if (obj[e] instanceof Array) {
           return <IsArray key={i} name={e} data={obj[e]} collapsed={true} indent={this.props.indent + 50}/>
