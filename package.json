@@ -34,6 +34,8 @@
     "nodemon": "^1.17.5"
   },
   "nodemonConfig": {
-    "ignore": ["worker_files/*"]
+    "ignore": [
+      "worker_files/*"
+    ]
   }
 }
