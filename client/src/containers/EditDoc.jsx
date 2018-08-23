@@ -19,7 +19,8 @@ class EditDoc extends Component{
 
     this.state = {
       code: default_code,
-      data: ''
+      data: '',
+      processed: '',
     }
   }
 
@@ -37,7 +38,7 @@ class EditDoc extends Component{
         console.log('Something went wrong', err);
       })
   }
-  
+
   // to do: runCode, utilize the post request to make the web worker
   runCode = () => {
     // produce web worker in file
@@ -48,6 +49,7 @@ class EditDoc extends Component{
       // define worker event handler (which needs to delete the worker)
       worker.onmessage = event => {
         console.log(event.data);
+        this.setState({processed: event.data})
         worker.terminate();
       };
     }).catch(error => {
@@ -55,7 +57,7 @@ class EditDoc extends Component{
       console.log(error);
     });
   }
-  
+
   viewMyDocs = () => {
     console.log('write function to redirect to mydocs page')
   }
@@ -66,6 +68,10 @@ class EditDoc extends Component{
   uploadFromFile = () => {
     console.log('upload from file')
   }
+  // componentDidMount(){
+
+  //   this.setState({processedArr: processedMap})
+  // }
 
   render() {
     let obj = this.state.data;
@@ -80,6 +86,23 @@ class EditDoc extends Component{
           return <Primitive key={i} name={e} data={obj[e]} indent={1} />;
         }
       })
+    let processedData = this.state.processed;
+    let processedMap;
+    if (processedData) {
+
+      let processedArr = Object.keys(processedData)
+      processedMap = processedArr.map((e, i) => {
+        if (processedData[e] instanceof Array) {
+          return <IsArray key={i} name={e} data={processedData[e]} collapsed={true} indent={1} />;
+        } else if (processedData[e] !== null && typeof processedData[e] === 'object') {
+          return <IsObject key={i} name={e} data={processedData[e]} collapsed={true} indent={1} />;
+        } else {
+          return <Primitive key={i} name={e} data={processedData[e]} indent={1} />;
+        }
+      })
+    }
+
+
 
     return (
       <div className="editDocContainer">
@@ -102,6 +125,7 @@ class EditDoc extends Component{
           </div>
           <div className="processedView">
             <h1> PROCESSED JSON VIEW COMPONENT HERE</h1>
+            {processedMap}
           </div>
         </div>
 
@@ -116,4 +140,3 @@ class EditDoc extends Component{
 }
 
 export default connect(mapDispatchToProps)(EditDoc);
-
