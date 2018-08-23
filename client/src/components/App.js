@@ -14,9 +14,10 @@ import RequireAuth from './RequireAuth.js';
 
 class App extends Component {
   componentDidMount() {
+    // fetch auth data
     this.props.fetchUser();
   }
-
+  
   render() {
     return (
       <BrowserRouter>

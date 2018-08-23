@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import DocTitle from '../components/DocTitle';
 import { connect } from 'react-redux';
 import { pasteData} from '../actions/actions';
@@ -6,6 +7,7 @@ import IsObject from '../components/IsObject';
 import IsArray from '../components/IsArray';
 import Primitive from '../components/Primitive';
 
+import {default_code} from '../constants.js';
 
 const mapDispatchToProps = dispatch => ({
   dispatch
@@ -16,7 +18,7 @@ class EditDoc extends Component{
     super(props)
 
     this.state = {
-      code: '',
+      code: default_code,
       data: ''
     }
   }
@@ -35,12 +37,25 @@ class EditDoc extends Component{
         console.log('Something went wrong', err);
       })
   }
-
+  
+  // to do: runCode, utilize the post request to make the web worker
   runCode = () => {
-    if(this.state.code){
-      console.log(this.state.code)
-    }
+    // produce web worker in file
+    const body = {json_data: this.state.data, transform_code: this.state.code};
+    axios.post('/worker/write_worker', body).then(res => {
+      // create web worker
+      const worker = new Worker('worker/worker.js');
+      // define worker event handler (which needs to delete the worker)
+      worker.onmessage = event => {
+        console.log(event.data);
+        worker.terminate();
+      };
+    }).catch(error => {
+      console.log('error:');
+      console.log(error);
+    });
   }
+  
   viewMyDocs = () => {
     console.log('write function to redirect to mydocs page')
   }
@@ -91,7 +106,7 @@ class EditDoc extends Component{
         </div>
 
         <div className="codeEditor">
-          <textarea rows="10" onChange={this.handleOnchange} value={this.state.code}
+          <textarea style={{fontFamily: 'monospace'}} rows="10" cols="100" onChange={this.handleOnchange} value={this.state.code}
           />
           <button onClick={this.runCode}> Run Code </button>
         </div>
@@ -100,5 +115,5 @@ class EditDoc extends Component{
   }
 }
 
-
 export default connect(mapDispatchToProps)(EditDoc);
+
