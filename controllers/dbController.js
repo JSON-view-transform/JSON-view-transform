@@ -53,7 +53,7 @@ module.exports = pool => ({
   // get given document's contents
   getDocContent: (req, res, next) => {
     const queryText = 'SELECT name, input_json, output_json, code FROM documents WHERE owner=$1 AND doc_id=$2';
-    const {doc_id} = req.body;
+    const {doc_id} = req.query;
     const owner = req.user.id;
     const values = [owner, doc_id];
     

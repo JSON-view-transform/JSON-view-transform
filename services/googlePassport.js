@@ -13,14 +13,14 @@ module.exports = function(pool) {
     console.log('starting deserialize user');
     
     const queryText = 'select * from users where profile_id = $1';
-    
-    pool.query(queryText, [profile_id]).then(result => {
+    const values = [profile_id];
+    pool.query(queryText, values).then(result => {
       const user = result.rows[0];
-      console.log('deserialize main result: ');
-      console.log(user.profile_id);
+      console.log('deserialize main result:');
+      console.log(user || null);
       
       // passport deserialize complete
-      done(null, user);
+      done(null, user || null);
     });
   });
 
