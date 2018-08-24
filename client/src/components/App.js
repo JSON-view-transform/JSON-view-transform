@@ -24,10 +24,11 @@ class App extends Component {
         <div>
           <Header data={this.props.auth.data} />
           <Switch>
-            <Route exact path="/" component={EditDoc} />
+            <Route exact path="/" component={(props) => <EditDoc history={props.history} location={props.location} saved={false} />} />
+            <Route exact path="/doc/:doc_id" component={(props) => <EditDoc history={props.history} location={props.location} saved={true} />} />
+            <Route exact path="/myDocs" component={DocList}/>
             <Route path="/hello" component={Hello} />
             <Route path="/protected" component={RequireAuth(Protected)} />
-            <Route exact path="/myDocs" component={DocList}/>
           </Switch>
         </div>
       </BrowserRouter>

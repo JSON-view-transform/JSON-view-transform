@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import DocRowElement from '../components/DocRowElement';
 
 export default class DocList extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      yourDocs: null
+      myDocs: []
     }
+    
+    this.onEditDocClick = this.onEditDocClick.bind(this);
+    this.onDeleteDocClick = this.onDeleteDocClick.bind(this);
+    this.renderDocList = this.renderDocList.bind(this);
   }
-  componentDidMount(){
+  
+  componentDidMount() {
     //axios call to get docs for user
-    //this.setState({yourDocs: })
+    axios.get('/api/get_docs').then(response => {
+      const myDocs = response.data;
+      this.setState({myDocs});
+    }).catch(error => {
+      console.log(error);
+    });
   }
-
-  render(){
-    //loop through yourDocs to map the arr with doc title and create DocRowElement with title and pass down on props
+  
+  onEditDocClick(doc_id) {
+    this.props.history.push(`/doc/${doc_id}`);
+  }
+  
+  onDeleteDocClick() {
+    
+  }
+  
+  renderDocList() {
+    return this.state.myDocs.map(doc => {
+      return <DocRowElement key={doc.doc_id} onEditDocClick={() => this.onEditDocClick(doc.doc_id)} onDeleteDocClick={this.onDeleteDocClick} name={doc.name} />;
+    });
+  }
+  
+  render() {
     return(
 
       <div className="yourDocsList" style={{marginBottom: '15px'}}>
+
     <h1> Your Docs</h1>
-      <td>
-        <DocRowElement key={1} onEditDocClick={this.onEditDocClick} onDeleteDocClick={this.onDeleteDocClick} name="test2" />
-        <DocRowElement key={2} onEditDocClick={this.onEditDocClick} onDeleteDocClick={this.onDeleteDocClick} name="test1" />
-        <DocRowElement key={3} onEditDocClick={this.onEditDocClick} onDeleteDocClick={this.onDeleteDocClick} name="test6" />
-        <DocRowElement key={4} onEditDocClick={this.onEditDocClick} onDeleteDocClick={this.onDeleteDocClick} name="test5" />
-        <DocRowElement key={5} onEditDocClick={this.onEditDocClick} onDeleteDocClick={this.onDeleteDocClick} name="test4" />
-      </td>
+      <div>
+        {this.renderDocList()}
+      </div>
     </div>
     )
+    
   }
 }
+
