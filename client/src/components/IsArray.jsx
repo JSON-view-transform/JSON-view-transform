@@ -39,6 +39,7 @@ class IsArray extends Component {
     }
     return (
       <div style={{ textIndent: `${this.props.indent}px` }}>
+        <img src="https://www.computerhope.com/jargon/b/bracket.gif" style={{width: '25px', height:'25px', marginRight: '5px'}}></img>
         <button onClick={this.handleClick}> {icon} </button>
         {name}
         {display}

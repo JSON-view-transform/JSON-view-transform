@@ -1,3 +1,16 @@
 body {
   font-family: sans-serif;
 }
+
+.viewContainer{
+  display: flex;
+}
+.jsonView{
+  width: 50%;
+  margin-bottom: 50px;
+}
+
+.processedView{
+  width: 50%;
+  margin-bottom: 50px;
+}
