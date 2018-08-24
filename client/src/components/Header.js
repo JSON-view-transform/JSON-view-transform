@@ -6,17 +6,17 @@ class Header extends Component {
       return <br/>;
     }
     else if (this.props.data) { // truthy
-      return <div><a className="nav-link" href="/api/logout">Sign Out</a> <span>{this.props.data.name}</span></div>;
+      return <div style={{textAlign: 'left'}}><a className="nav-link" href="/api/logout">Sign Out</a> <span>{this.props.data.name}</span></div>;
     }
     else { // false (exactly)
       return <div><a className="nav-link" href="/auth/google">Sign In</a></div>;
     }
   }
-  
+
   render() {
     return (
-      <div>
-        <h3>JSON Viewer</h3>
+      <div style={{marginBottom: '30px'}}>
+        <h3>JSON Viewer  </h3>
         {this.renderAuthButton()}
       </div>
     );
@@ -24,4 +24,3 @@ class Header extends Component {
 }
 
 export default Header;
-

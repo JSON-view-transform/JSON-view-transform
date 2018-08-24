@@ -40,8 +40,9 @@ export default class DocList extends Component {
   
   render() {
     return(
-    
-    <div className="yourDocsList">
+
+      <div className="yourDocsList" style={{marginBottom: '15px'}}>
+
     <h1> Your Docs</h1>
       <div>
         {this.renderDocList()}
