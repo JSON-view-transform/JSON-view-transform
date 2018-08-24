@@ -39,6 +39,7 @@ class IsObject extends Component {
     }
     return (
       <div style={{textIndent: `${this.props.indent}px`}}>
+        <img src="http://www.clker.com/cliparts/w/t/7/E/e/r/blue-curly-braces-hi.png" style={{width: '25px', height: '25px', marginRight: '5px'}}/>
         <button onClick={this.handleClick}> {icon} </button>
         {name}
         {display}
