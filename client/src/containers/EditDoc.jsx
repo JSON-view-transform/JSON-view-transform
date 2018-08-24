@@ -23,9 +23,22 @@ class EditDoc extends Component{
       processed: '',
     }
   }
-
+  
+  // on mount, make api call
+  componentDidMount() {
+    if (!this.props.saved) return;
+    
+    const doc_id = this.props.location.pathname.slice(5);
+    axios.get(`/api/get_doc_content?doc_id=${doc_id}`).then(response => {
+      const {input_json, output_json, code} = response.data;
+      this.setState({data: input_json, processed: output_data, code});
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+  
   handleOnchange =(e) => {
-    this.setState({code: e.target.value})
+    this.setState({code: e.target.value});
   }
 
   pasteFromClipBoard = () => {
@@ -59,7 +72,7 @@ class EditDoc extends Component{
   }
 
   viewMyDocs = () => {
-    console.log('write function to redirect to mydocs page')
+    this.props.history.push('/myDocs');
   }
 
   save = () => {

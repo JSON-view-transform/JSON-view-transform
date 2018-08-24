@@ -4,7 +4,7 @@ const DocRowElement = (props) => {
   return (
       <div>
        
-        <tr> {props.name}</tr>
+        <span> {props.name}</span>
         <button onClick={props.onEditDocClick}>Edit Doc</button>
         <button onClick={props.onDeleteDocClick}>Delete Doc</button>
       </div>
