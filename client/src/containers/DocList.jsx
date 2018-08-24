@@ -17,7 +17,7 @@ export default class DocList extends Component {
     //loop through yourDocs to map the arr with doc title and create DocRowElement with title and pass down on props
     return(
 
-    <div className="yourDocsList">
+      <div className="yourDocsList" style={{marginBottom: '15px'}}>
     <h1> Your Docs</h1>
       <td>
         <DocRowElement key={1} onEditDocClick={this.onEditDocClick} onDeleteDocClick={this.onDeleteDocClick} name="test2" />

@@ -106,19 +106,19 @@ class EditDoc extends Component{
 
     return (
       <div className="editDocContainer">
-        <div className="docTitle">
+        <div className="docTitle" style={{fontSize: '2em', marginBottom: '20px'}}>
           <DocTitle dispatch={this.props.dispatch}/>
         </div>
-        <div className="myDocs">
+        <div className="myDocs" style={{float: 'left'}}>
           <button className="viewMyDocs" onClick={this.viewMyDocs}>View My Docs</button>
         </div>
-        <div className="pasteButton">
+        <div className="pasteButton" style={{marginBottom: '25px'}}>
           <button className="paste" onClick={this.pasteFromClipBoard}> Paste from Clipboard</button>
           <button className="upload" onClick={this.uploadFromFile}> Upload JSON from file</button>
 
         </div>
         <div className="viewContainer">
-          <div className="jsonView">
+          <div className="jsonView" style={{marginBottom: '10px'}}>
             <button className="save" onClick={this.save}>Save</button>
             <h1> Json View </h1>
             {mapped}
