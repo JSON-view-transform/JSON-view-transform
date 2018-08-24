@@ -31,7 +31,7 @@ class EditDoc extends Component{
     const doc_id = this.props.location.pathname.slice(5);
     axios.get(`/api/get_doc_content?doc_id=${doc_id}`).then(response => {
       const {input_json, output_json, code} = response.data;
-      this.setState({data: input_json, processed: output_data, code});
+      this.setState({data: input_json, processed: output_json, code});
     }).catch(error => {
       console.log(error);
     });
@@ -58,7 +58,7 @@ class EditDoc extends Component{
     const body = {json_data: this.state.data, transform_code: this.state.code};
     axios.post('/worker/write_worker', body).then(res => {
       // create web worker
-      const worker = new Worker('worker/worker.js');
+      const worker = new Worker('/worker/worker.js');
       // define worker event handler (which needs to delete the worker)
       worker.onmessage = event => {
         console.log(event.data);
